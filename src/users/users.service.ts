@@ -16,10 +16,6 @@ export class UsersService {
     return await this.userRepository.findOne({ id });
   }
 
-  async findAll(): Promise<User[]> {
-    return await this.userRepository.find();
-  }
-
   async create(dto: CreateUserDto): Promise<User> {
     const result = await this.userRepository.insert(dto).catch(e => {
       console.log(e);

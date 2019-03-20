@@ -9,11 +9,6 @@ import { CreateUserDto, UpdateUserDto } from './dto/index.dto';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Get()
-  findAll(): Promise<User[]> {
-    return this.usersService.findAll();
-  }
-
   @Get(':id')
   async findById(@Param('id', new ParseIntPipe()) id): Promise<User> {
     const user = await this.usersService.findById(id);
