@@ -12,9 +12,8 @@ export class UsersService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  async findById(id: number): Promise<User | null> {
-    const user = await this.userRepository.findOne({ id });
-    return user;
+  async findById(id: number): Promise<User | undefined> {
+    return await this.userRepository.findOne({ id });
   }
 
   async findAll(): Promise<User[]> {
@@ -22,7 +21,7 @@ export class UsersService {
   }
 
   async create(dto: CreateUserDto): Promise<User> {
-    await this.userRepository.insert(dto);
+    const result = await this.userRepository.insert(dto)
     return dto as User
   }
 
