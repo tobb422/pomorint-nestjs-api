@@ -23,3 +23,9 @@ export class NotFoundException extends HttpException {
     super('NotFound', HttpStatus.NOT_FOUND);
   }
 }
+
+export class RecordInvalidException extends HttpException {
+  constructor(message: string) {
+    super(message, HttpStatus.UNPROCESSABLE_ENTITY);
+  }
+}

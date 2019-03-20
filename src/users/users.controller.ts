@@ -30,6 +30,6 @@ export class UsersController {
   @Put(':id')
   @HttpCode(201)
   update(@Param('id', new ParseIntPipe()) id, @Body(new ValidationPipe()) body: UpdateUserDto): Promise<User> {
-    return this.usersService.update(id, body as UpdateUserDto);
+    return this.usersService.update(id, body);
   }
 }
