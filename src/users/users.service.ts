@@ -21,12 +21,19 @@ export class UsersService {
   }
 
   async create(dto: CreateUserDto): Promise<User> {
-    const result = await this.userRepository.insert(dto)
-    return dto as User
+    const result = await this.userRepository.insert(dto).then(res => {
+      console.log(res);
+      return res
+    }).catch(e => {
+      console.log(e);
+      return e
+    });
+    console.log(result);
+    return dto as User;
   }
 
   async update(id: number, dto: UpdateUserDto): Promise<User> {
     await this.userRepository.update(id, dto);
-    return dto as User
+    return dto as User;
   }
 }

@@ -1,9 +1,8 @@
-import { Controller, Get, Post, Put, Param, Body, HttpCode } from '@nestjs/common';
+import { Controller, Get, Post, Put, Param, Body, HttpCode, ValidationPipe } from '@nestjs/common';
 import { NotFoundException } from '../exception';
 import { UsersService } from './users.service';
 import { User } from './user.entity';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { CreateUserDto, UpdateUserDto } from './dto/index.dto';
 
 
 @Controller('users')
@@ -24,8 +23,8 @@ export class UsersController {
 
   @Post()
   @HttpCode(201)
-  create(@Body() body): Promise<User> {
-    return this.usersService.create(body as CreateUserDto);
+  create(@Body(new ValidationPipe()) body: CreateUserDto): Promise<User> {
+    return this.usersService.create(body);
   }
 
   @Put(':id')
