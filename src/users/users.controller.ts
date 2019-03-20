@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Param, Body, HttpCode, ValidationPipe, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Param, Body, HttpCode, ValidationPipe, ParseIntPipe } from '@nestjs/common';
 import { NotFoundException } from '../exception';
 import { UsersService } from './users.service';
 import { User } from './user.entity';
@@ -26,5 +26,11 @@ export class UsersController {
   @HttpCode(201)
   update(@Param('id', new ParseIntPipe()) id, @Body(new ValidationPipe()) body: UpdateUserDto): Promise<User> {
     return this.usersService.update(id, body);
+  }
+
+  @Delete(':id')
+  @HttpCode(204)
+  delete(@Param('id', new ParseIntPipe()) id): void {
+    return this.usersService.delete(id);
   }
 }

@@ -17,20 +17,25 @@ export class UsersService {
   }
 
   async create(dto: CreateUserDto): Promise<User> {
-    const result = await this.userRepository.insert(dto).catch(e => {
+    await this.userRepository.insert(dto).catch(e => {
       console.log(e);
-      return e;
+      throw new RecordInvalidException(e.detail);
     });
-    if (result.detail) throw new RecordInvalidException(result.detail);
     return dto as User;
   }
 
   async update(id: number, dto: UpdateUserDto): Promise<User> {
-    const result = await this.userRepository.update(id, dto).catch(e => {
+    await this.userRepository.update(id, dto).catch(e => {
       console.log(e);
-      return e
+      throw new RecordInvalidException(e.detail);
     });
-    if (result.detail) throw new RecordInvalidException(result.detail);
     return dto as User;
+  }
+
+  delete(id: number): void {
+    this.userRepository.delete(id).catch(e => {
+      console.log(e);
+      throw new RecordInvalidException(e.detail);
+    });
   }
 }
