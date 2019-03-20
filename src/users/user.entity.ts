@@ -6,14 +6,14 @@ export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ name: 'name' })
   name: string;
 
-  @Column()
+  @Column({ name: 'password' })
   @Length(8, 16)
   password: string;
 
-  @Column({ unique: true })
+  @Column({ name: 'email', unique: true })
   @IsEmail()
   email: string;
 }
