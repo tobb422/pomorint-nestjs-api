@@ -12,5 +12,4 @@ import { UsersModule } from '../users/users.module';
   providers: [AuthService, GoogleStrategy, HttpStrategy],
   exports: [AuthService],
 })
-
 export class AuthModule {}

@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Req, Res, Next, Param, Body, ValidationPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Req,
+  Res,
+  Next,
+  Param,
+  Body,
+  ValidationPipe,
+} from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import { authenticate } from 'passport';
 import { AuthService } from './auth.service';
@@ -25,7 +35,7 @@ export class AuthController {
     @Req() req: Request,
     @Res() res: Response,
     @Next() next: NextFunction,
-    @Param('provider') provider: AuthProvider
+    @Param('provider') provider: AuthProvider,
   ) {
     const params = {
       session: false,
@@ -40,7 +50,7 @@ export class AuthController {
     @Req() req: Request,
     @Res() res: Response,
     @Next() next: NextFunction,
-    @Param('provider') provider: AuthProvider
+    @Param('provider') provider: AuthProvider,
   ) {
     const params = {
       session: false,

@@ -3,9 +3,4 @@ import { UpdateUserDto } from './update-user.dto';
 import { GoogleUserDto } from './google-user.dto';
 import { AuthUserDto } from './auth-user.dto';
 
-export {
-  CreateUserDto,
-  UpdateUserDto,
-  GoogleUserDto,
-  AuthUserDto
-}
+export { CreateUserDto, UpdateUserDto, GoogleUserDto, AuthUserDto };

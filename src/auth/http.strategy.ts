@@ -6,7 +6,6 @@ import { UnauthorizedException } from '@nestjs/common';
 
 @Injectable()
 export class HttpStrategy extends PassportStrategy(Strategy) {
-
   constructor(private readonly auth: AuthService) {
     super();
   }

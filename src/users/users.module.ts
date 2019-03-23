@@ -4,7 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthGuard } from '@nestjs/passport';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
-import { User } from './user.entity'
+import { User } from './user.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User])],
@@ -13,9 +13,9 @@ import { User } from './user.entity'
     UsersService,
     {
       provide: APP_GUARD,
-      useClass: AuthGuard('bearer')
-    }
+      useClass: AuthGuard('bearer'),
+    },
   ],
-  exports: [UsersService]
+  exports: [UsersService],
 })
 export class UsersModule {}
