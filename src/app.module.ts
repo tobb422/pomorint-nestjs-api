@@ -4,17 +4,16 @@ import { Connection } from 'typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
-import { AuthController } from './auth/auth.controller';
-import { AuthService } from './auth/auth.service';
-import { GoogleStrategy } from './auth/google.strategy';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(),
-    UsersModule
+    UsersModule,
+    AuthModule
   ],
-  controllers: [AppController, AuthController],
-  providers: [AppService, AuthService, GoogleStrategy],
+  controllers: [AppController],
+  providers: [AppService]
 })
 
 export class AppModule {

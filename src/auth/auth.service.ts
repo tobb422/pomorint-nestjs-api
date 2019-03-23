@@ -11,11 +11,7 @@ export class AuthService {
   }
 
   async loginOrSignUpUser(dto: GoogleUserDto): Promise<any> {
-    const user = await this.usersService.findByGoogleId(dto.googleId);
-    if (user) {
-      return user
-    } else {
-      return this.createUser(dto);
-    }
+    const user = await this.usersService.findByEmail(dto.email);
+    return !!user ? user : this.createUser(dto);
   }
 }

@@ -8,6 +8,6 @@ import { User } from './user.entity'
   imports: [TypeOrmModule.forFeature([User])],
   controllers: [UsersController],
   providers: [UsersService],
-  exports: [UsersService] // CatsModule を import した module では、CatsService を再利用可能
+  exports: [UsersService]
 })
 export class UsersModule {}

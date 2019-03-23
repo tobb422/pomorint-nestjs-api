@@ -6,9 +6,6 @@ export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'google_id', unique: true, nullable: true })
-  googleId: string | null;
-
   @Column({ name: 'name' })
   name: string;
 

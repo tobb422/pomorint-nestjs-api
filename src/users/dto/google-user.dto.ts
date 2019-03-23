@@ -2,9 +2,6 @@ import { IsString, IsEmail } from 'class-validator';
 
 export class GoogleUserDto {
   @IsString()
-  readonly googleId: string;
-
-  @IsString()
   readonly name: string;
 
   @IsEmail()

@@ -16,8 +16,8 @@ export class UsersService {
     return await this.userRepository.findOne({ id });
   }
 
-  async findByGoogleId(id: string): Promise<User | undefined> {
-    return await this.userRepository.findOne({ googleId: id });
+  async findByEmail(email: string): Promise<User | undefined> {
+    return await this.userRepository.findOne({ email: email });
   }
 
   async create(dto: CreateUserDto): Promise<User> {
