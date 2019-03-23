@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import * as jwt from 'jsonwebtoken';
 import { RecordInvalidException } from '../exception';
 import { User } from './user.entity';
 import { CreateUserDto, UpdateUserDto, GoogleUserDto } from './dto/index.dto';

@@ -1,16 +1,15 @@
 import { Controller, Get, Req, Res, Next, Param } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import { authenticate } from 'passport';
-import { AuthService } from './auth.service';
 
 type AuthProvider = 'google';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly auth: AuthService) {}
+  constructor() {}
 
   @Get(':provider(google)')
-  async handleOauthRequest(
+  async signin(
     @Req() req: Request,
     @Res() res: Response,
     @Next() next: NextFunction,
@@ -25,7 +24,7 @@ export class AuthController {
   }
 
   @Get(':provider(google)/callback')
-  async handleOauthCallback(
+  async callback(
     @Req() req: Request,
     @Res() res: Response,
     @Next() next: NextFunction,
@@ -36,11 +35,9 @@ export class AuthController {
       state: req.query.state,
       callbackURL: `${process.env.baseUrl}auth/google/callback`,
     };
-    // We use callback here, but you can let passport do the redirect
-    // http://www.passportjs.org/docs/downloads/html/#custom-callback
-    return await authenticate(provider, params, (err, user) => {
+    return authenticate(provider, params, (err, token) => {
       if (err) return next(err);
-      res.redirect(`/users/${user.id}`);
+      res.json(token);
     })(req, res, next);
   }
 }

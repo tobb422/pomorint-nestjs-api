@@ -1,4 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import * as jwt from 'jsonwebtoken';
+import { User } from '../users/user.entity';
 import { UsersService } from '../users/users.service';
 import { GoogleUserDto } from '../users/dto/google-user.dto';
 
@@ -6,12 +8,21 @@ import { GoogleUserDto } from '../users/dto/google-user.dto';
 export class AuthService {
   constructor(private readonly usersService: UsersService) {}
 
-  async createUser(user: GoogleUserDto): Promise<any> {
-    return await this.usersService.createWithGoogle(user);
+  createToken(payload: User): any {
+    return jwt.sign(
+      { email: payload.email },
+      'secret',
+      { expiresIn: '24h' }
+    );
   }
 
-  async loginOrSignUpUser(dto: GoogleUserDto): Promise<any> {
+  async validateWithGoogle(dto: GoogleUserDto): Promise<any> {
     const user = await this.usersService.findByEmail(dto.email);
-    return !!user ? user : this.createUser(dto);
+    return this.createToken((!!user ? user : this.usersService.createWithGoogle(user)) as User);
+  }
+
+  async validate(token: string): Promise<any> {
+    const email = jwt.verify(token, 'secret').email;
+    return await this.usersService.findByEmail(email);
   }
 }
