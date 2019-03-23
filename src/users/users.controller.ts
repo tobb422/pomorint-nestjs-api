@@ -1,5 +1,4 @@
-import { Controller, Get, Post, Put, Delete, Param, Body, HttpCode, UseGuards, ValidationPipe, ParseIntPipe } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import { Controller, Get, Post, Put, Delete, Param, Body, HttpCode, ValidationPipe, ParseIntPipe } from '@nestjs/common';
 import { NotFoundException } from '../exception';
 import { UsersService } from './users.service';
 import { User } from './user.entity';
@@ -11,7 +10,6 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get(':id')
-  @UseGuards(AuthGuard('bearer'))
   async findById(@Param('id', new ParseIntPipe()) id): Promise<User> {
     const user = await this.usersService.findById(id);
     if (!user) throw new NotFoundException();
