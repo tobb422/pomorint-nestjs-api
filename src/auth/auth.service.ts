@@ -1,13 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
+import { GoogleUserDto } from '../users/dto/google-user.dto';
 
 @Injectable()
 export class AuthService {
   constructor(private readonly usersService: UsersService) {}
 
-  async validateUser(token: string): Promise<any> {
-    // Validate if token passed along with HTTP request
-    // is associated with any registered account in the database
-    return await this.usersService.findOneByToken(token);
+  async createUser(user: GoogleUserDto): Promise<any> {
+    return await this.usersService.createWithGoogle(user);
+  }
+
+  async loginOrSignUpUser(dto: GoogleUserDto): Promise<any> {
+    const user = await this.usersService.findByGoogleId(dto.googleId);
+    if (user) {
+      return user
+    } else {
+      return this.createUser(dto);
+    }
   }
 }
