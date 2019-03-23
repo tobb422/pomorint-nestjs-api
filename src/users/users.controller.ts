@@ -1,25 +1,18 @@
-import { Controller, Get, Post, Put, Delete, Param, Body, HttpCode, ValidationPipe, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Put, Delete, Req, Param, Body, HttpCode, ValidationPipe, ParseIntPipe } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { NotFoundException } from '../exception';
 import { UsersService } from './users.service';
 import { User } from './user.entity';
-import { CreateUserDto, UpdateUserDto } from './dto/index.dto';
+import { UpdateUserDto } from './dto/index.dto';
 
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Get(':id')
-  async findById(@Param('id', new ParseIntPipe()) id): Promise<User> {
-    const user = await this.usersService.findById(id);
-    if (!user) throw new NotFoundException();
-    return user;
-  }
-
-  @Post()
-  @HttpCode(201)
-  create(@Body(new ValidationPipe()) body: CreateUserDto): Promise<User> {
-    return this.usersService.create(body);
+  @Get('info')
+  async info(@Req() req): Promise<User> {
+    return req.user;
   }
 
   @Put(':id')
