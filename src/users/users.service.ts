@@ -13,8 +13,8 @@ export class UsersService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  async findById(id: number): Promise<User | undefined> {
-    return await this.userRepository.findOne({ id })
+  async findAll(): Promise<User[]> {
+    return await this.userRepository.find()
   }
 
   async findByEmail(email: string): Promise<User | undefined> {

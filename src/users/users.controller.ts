@@ -23,6 +23,11 @@ export class UsersController {
     return req.user
   }
 
+  @Get('all')
+  async finAll(@Req() req): Promise<User[]> {
+    return this.usersService.findAll()
+  }
+
   @Put(':id')
   @HttpCode(201)
   update(
