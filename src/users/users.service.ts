@@ -17,6 +17,10 @@ export class UsersService {
     return await this.userRepository.find()
   }
 
+  async findById(id: number): Promise<User | undefined> {
+    return await this.userRepository.findOne(id)
+  }
+
   async findByEmail(email: string): Promise<User | undefined> {
     return await this.userRepository.findOne({ email: email })
   }
@@ -42,7 +46,7 @@ export class UsersService {
       console.log(e)
       throw new RecordInvalidException(e.detail)
     })
-    return dto as User
+    return await this.findById(id) as User
   }
 
   delete(id: number): void {
