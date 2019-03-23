@@ -6,6 +6,10 @@ import 'dotenv'
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
   app.use(logger)
+  app.enableCors({
+    origin: '*',
+    allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept',
+  })
   await app.listen(3001)
 }
 bootstrap()
