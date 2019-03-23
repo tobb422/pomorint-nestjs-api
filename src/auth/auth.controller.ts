@@ -8,13 +8,13 @@ import {
   Param,
   Body,
   ValidationPipe,
-} from '@nestjs/common';
-import { Request, Response, NextFunction } from 'express';
-import { authenticate } from 'passport';
-import { AuthService } from './auth.service';
-import { CreateUserDto, AuthUserDto } from '../users/dto/index.dto';
+} from '@nestjs/common'
+import { Request, Response, NextFunction } from 'express'
+import { authenticate } from 'passport'
+import { AuthService } from './auth.service'
+import { CreateUserDto, AuthUserDto } from '../users/dto/index.dto'
 
-type AuthProvider = 'google';
+type AuthProvider = 'google'
 
 @Controller('auth')
 export class AuthController {
@@ -22,12 +22,12 @@ export class AuthController {
 
   @Post('signup')
   async signup(@Body(new ValidationPipe()) body: CreateUserDto) {
-    return await this.auth.signup(body);
+    return await this.auth.signup(body)
   }
 
   @Post('login')
   async login(@Body(new ValidationPipe()) body: AuthUserDto) {
-    return await this.auth.login(body);
+    return await this.auth.login(body)
   }
 
   @Get(':provider(google)')
@@ -41,8 +41,8 @@ export class AuthController {
       session: false,
       scope: ['profile', 'email'],
       callbackURL: `${process.env.baseUrl}auth/google/callback`,
-    };
-    authenticate(provider, params)(req, res, next);
+    }
+    authenticate(provider, params)(req, res, next)
   }
 
   @Get(':provider(google)/callback')
@@ -56,10 +56,10 @@ export class AuthController {
       session: false,
       state: req.query.state,
       callbackURL: `${process.env.baseUrl}auth/google/callback`,
-    };
+    }
     return authenticate(provider, params, (err, token) => {
-      if (err) return next(err);
-      res.json(token);
-    })(req, res, next);
+      if (err) return next(err)
+      res.json(token)
+    })(req, res, next)
   }
 }

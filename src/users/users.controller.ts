@@ -9,10 +9,10 @@ import {
   HttpCode,
   ValidationPipe,
   ParseIntPipe,
-} from '@nestjs/common';
-import { UsersService } from './users.service';
-import { User } from './user.entity';
-import { UpdateUserDto } from './dto/index.dto';
+} from '@nestjs/common'
+import { UsersService } from './users.service'
+import { User } from './user.entity'
+import { UpdateUserDto } from './dto/index.dto'
 
 @Controller('users')
 export class UsersController {
@@ -20,7 +20,7 @@ export class UsersController {
 
   @Get('info')
   async info(@Req() req): Promise<User> {
-    return req.user;
+    return req.user
   }
 
   @Put(':id')
@@ -29,12 +29,12 @@ export class UsersController {
     @Param('id', new ParseIntPipe()) id,
     @Body(new ValidationPipe()) body: UpdateUserDto,
   ): Promise<User> {
-    return this.usersService.update(id, body);
+    return this.usersService.update(id, body)
   }
 
   @Delete(':id')
   @HttpCode(204)
   delete(@Param('id', new ParseIntPipe()) id): void {
-    return this.usersService.delete(id);
+    return this.usersService.delete(id)
   }
 }

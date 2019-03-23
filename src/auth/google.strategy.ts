@@ -1,13 +1,13 @@
-import { Injectable } from '@nestjs/common';
-import { PassportStrategy } from '@nestjs/passport';
+import { Injectable } from '@nestjs/common'
+import { PassportStrategy } from '@nestjs/passport'
 import {
   Profile,
   Strategy,
   StrategyOptionWithRequest,
   VerifyFunctionWithRequest,
-} from 'passport-google-oauth20';
-import { AuthService } from './auth.service';
-import { GoogleUserDto } from '../users/dto/google-user.dto';
+} from 'passport-google-oauth20'
+import { AuthService } from './auth.service'
+import { GoogleUserDto } from '../users/dto/google-user.dto'
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
@@ -31,13 +31,13 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
           email: profile.emails[0].value,
           image: profile.photos[0].value,
           name: profile.displayName,
-        } as GoogleUserDto;
+        } as GoogleUserDto
 
         return auth
           .validateWithGoogle(user)
           .then(result => done(null, result))
-          .catch(error => done(error));
+          .catch(error => done(error))
       }),
-    );
+    )
   }
 }

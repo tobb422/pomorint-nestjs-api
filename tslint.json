@@ -5,10 +5,6 @@
   "rulesDirectory": [
     "tslint-plugin-prettier"
   ],
-  "extends": [
-    "tslint-config-standard",
-    "tslint-config-prettier"
-  ],
   "rules": {
     "max-line-length": [
       true,

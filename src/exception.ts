@@ -1,31 +1,31 @@
-import { HttpException, HttpStatus } from '@nestjs/common';
+import { HttpException, HttpStatus } from '@nestjs/common'
 
 export class BadRequestException extends HttpException {
   constructor() {
-    super('BadRequest', HttpStatus.BAD_REQUEST);
+    super('BadRequest', HttpStatus.BAD_REQUEST)
   }
 }
 
 export class UnauthorizedException extends HttpException {
   constructor() {
-    super('Unauthorized', HttpStatus.UNAUTHORIZED);
+    super('Unauthorized', HttpStatus.UNAUTHORIZED)
   }
 }
 
 export class ForbiddenException extends HttpException {
   constructor() {
-    super('Forbidden', HttpStatus.FORBIDDEN);
+    super('Forbidden', HttpStatus.FORBIDDEN)
   }
 }
 
 export class NotFoundException extends HttpException {
   constructor() {
-    super('NotFound', HttpStatus.NOT_FOUND);
+    super('NotFound', HttpStatus.NOT_FOUND)
   }
 }
 
 export class RecordInvalidException extends HttpException {
   constructor(message: string) {
-    super(message, HttpStatus.UNPROCESSABLE_ENTITY);
+    super(message, HttpStatus.UNPROCESSABLE_ENTITY)
   }
 }

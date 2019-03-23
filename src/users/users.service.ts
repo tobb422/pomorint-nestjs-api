@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import * as jwt from 'jsonwebtoken';
-import { RecordInvalidException } from '../exception';
-import { User } from './user.entity';
-import { CreateUserDto, UpdateUserDto, GoogleUserDto } from './dto/index.dto';
+import { Injectable } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm'
+import * as jwt from 'jsonwebtoken'
+import { RecordInvalidException } from '../exception'
+import { User } from './user.entity'
+import { CreateUserDto, UpdateUserDto, GoogleUserDto } from './dto/index.dto'
 
 @Injectable()
 export class UsersService {
@@ -14,41 +14,41 @@ export class UsersService {
   ) {}
 
   async findById(id: number): Promise<User | undefined> {
-    return await this.userRepository.findOne({ id });
+    return await this.userRepository.findOne({ id })
   }
 
   async findByEmail(email: string): Promise<User | undefined> {
-    return await this.userRepository.findOne({ email: email });
+    return await this.userRepository.findOne({ email: email })
   }
 
   async create(dto: CreateUserDto): Promise<User> {
     await this.userRepository.insert(dto).catch(e => {
-      console.log(e);
-      throw new RecordInvalidException(e.detail);
-    });
-    return dto as User;
+      console.log(e)
+      throw new RecordInvalidException(e.detail)
+    })
+    return dto as User
   }
 
   async createWithGoogle(dto: GoogleUserDto): Promise<User> {
     await this.userRepository.insert(dto).catch(e => {
-      console.log(e);
-      throw new RecordInvalidException(e.detail);
-    });
-    return dto as User;
+      console.log(e)
+      throw new RecordInvalidException(e.detail)
+    })
+    return dto as User
   }
 
   async update(id: number, dto: UpdateUserDto): Promise<User> {
     await this.userRepository.update(id, dto).catch(e => {
-      console.log(e);
-      throw new RecordInvalidException(e.detail);
-    });
-    return dto as User;
+      console.log(e)
+      throw new RecordInvalidException(e.detail)
+    })
+    return dto as User
   }
 
   delete(id: number): void {
     this.userRepository.delete(id).catch(e => {
-      console.log(e);
-      throw new RecordInvalidException(e.detail);
-    });
+      console.log(e)
+      throw new RecordInvalidException(e.detail)
+    })
   }
 }
