@@ -1,6 +1,7 @@
-import { Controller, Get, Put, Delete, Req, Param, Body, HttpCode, ValidationPipe, ParseIntPipe } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
-import { NotFoundException } from '../exception';
+import {
+  Controller, Get, Put, Delete, Req, Param,
+  Body, HttpCode, ValidationPipe, ParseIntPipe
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './user.entity';
 import { UpdateUserDto } from './dto/index.dto';
@@ -17,7 +18,10 @@ export class UsersController {
 
   @Put(':id')
   @HttpCode(201)
-  update(@Param('id', new ParseIntPipe()) id, @Body(new ValidationPipe()) body: UpdateUserDto): Promise<User> {
+  update(
+    @Param('id', new ParseIntPipe()) id,
+    @Body(new ValidationPipe()) body: UpdateUserDto
+  ): Promise<User> {
     return this.usersService.update(id, body);
   }
 
