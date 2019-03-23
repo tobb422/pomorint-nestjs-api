@@ -30,7 +30,9 @@ export class LabelsController {
     @Req() req,
     @Body(new ValidationPipe()) body: CreateLabelDto,
   ): Promise<Label> {
-    return this.labelsService.create(Object.assign(body, { user: req.user }) as Label)
+    return this.labelsService.create(Object.assign(body, {
+      user: req.user,
+    }) as Label)
   }
 
   @Put(':id')
@@ -38,17 +40,14 @@ export class LabelsController {
   update(
     @Req() req,
     @Param('id', new ParseIntPipe()) id,
-    @Body(new ValidationPipe()) body: CreateLabelDto
+    @Body(new ValidationPipe()) body: CreateLabelDto,
   ): Promise<Label> {
     return this.labelsService.update(req.user, id, body)
   }
 
   @Delete(':id')
   @HttpCode(204)
-  delete(
-    @Req() req,
-    @Param('id', new ParseIntPipe()) id
-  ): void {
+  delete(@Req() req, @Param('id', new ParseIntPipe()) id): void {
     return this.labelsService.delete(req.user, id)
   }
 }

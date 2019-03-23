@@ -4,7 +4,7 @@ import { Repository } from 'typeorm'
 import { RecordInvalidException } from '../exception'
 import { Label } from './label.entity'
 import { User } from '../users/user.entity'
-import { CreateLabelDto } from './dto/create-label.dto';
+import { CreateLabelDto } from './dto/create-label.dto'
 // import { CreateUserDto, UpdateUserDto, GoogleUserDto } from './dto/index.dto'
 
 @Injectable()
