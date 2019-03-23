@@ -1,15 +1,27 @@
-import { Controller, Get, Req, Res, Next, Param } from '@nestjs/common';
+import { Controller, Get, Post, Req, Res, Next, Param, Body, ValidationPipe } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import { authenticate } from 'passport';
+import { AuthService } from './auth.service';
+import { CreateUserDto, AuthUserDto } from '../users/dto/index.dto';
 
 type AuthProvider = 'google';
 
 @Controller('auth')
 export class AuthController {
-  constructor() {}
+  constructor(private readonly auth: AuthService) {}
+
+  @Post('signup')
+  async signup(@Body(new ValidationPipe()) body: CreateUserDto) {
+    return await this.auth.signup(body);
+  }
+
+  @Post('login')
+  async login(@Body(new ValidationPipe()) body: AuthUserDto) {
+    return await this.auth.login(body);
+  }
 
   @Get(':provider(google)')
-  async signin(
+  async loginWithGoogle(
     @Req() req: Request,
     @Res() res: Response,
     @Next() next: NextFunction,
@@ -24,7 +36,7 @@ export class AuthController {
   }
 
   @Get(':provider(google)/callback')
-  async callback(
+  async oauthCallback(
     @Req() req: Request,
     @Res() res: Response,
     @Next() next: NextFunction,
