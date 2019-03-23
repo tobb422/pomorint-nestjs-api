@@ -8,7 +8,6 @@ import { AppService } from './app.service'
 import { UsersModule } from './users/users.module'
 import { AuthModule } from './auth/auth.module'
 
-
 @Module({
   imports: [TypeOrmModule.forRoot(), UsersModule, AuthModule],
   controllers: [AppController],
@@ -16,8 +15,8 @@ import { AuthModule } from './auth/auth.module'
     AppService,
     {
       provide: APP_GUARD,
-      useClass: CustomAuthGuard
-    }
+      useClass: CustomAuthGuard,
+    },
   ],
 })
 export class AppModule {

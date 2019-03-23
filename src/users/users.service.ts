@@ -46,7 +46,7 @@ export class UsersService {
       console.log(e)
       throw new RecordInvalidException(e.detail)
     })
-    return await this.findById(id) as User
+    return (await this.findById(id)) as User
   }
 
   delete(id: number): void {
