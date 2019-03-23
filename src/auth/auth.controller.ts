@@ -59,7 +59,7 @@ export class AuthController {
     }
     return authenticate(provider, params, (err, token) => {
       if (err) return next(err)
-      res.json(token)
+      res.redirect(`${process.env.authCallbackUrl}?token=${token}`)
     })(req, res, next)
   }
 }
