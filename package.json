@@ -30,6 +30,7 @@
     "class-transformer": "^0.2.0",
     "class-validator": "^0.9.1",
     "dotenv": "^7.0.0",
+    "element-ui": "^2.6.3",
     "jsonwebtoken": "^8.5.1",
     "passport": "^0.4.0",
     "passport-google-oauth20": "^2.0.0",

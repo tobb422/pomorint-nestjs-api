@@ -28,13 +28,13 @@ export class UsersController {
     return this.usersService.findAll()
   }
 
-  @Put(':id')
+  @Put()
   @HttpCode(201)
   update(
-    @Param('id', new ParseIntPipe()) id,
+    @Req() req,
     @Body(new ValidationPipe()) body: UpdateUserDto,
   ): Promise<User> {
-    return this.usersService.update(id, body)
+    return this.usersService.update(req.user.id, body)
   }
 
   @Delete(':id')
