@@ -14,7 +14,7 @@ export class IssuesService {
   ) {}
 
   async findByUser(user: User): Promise<Issue[]> {
-    return await this.issueRepository.find({ where: { user: user }, relations: ['labels'] },)
+    return await this.issueRepository.find({ where: { user: user, archived: false }, relations: ['labels'] },)
   }
 
   async create(issue: Issue): Promise<Issue> {
