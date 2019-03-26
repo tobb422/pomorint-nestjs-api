@@ -11,7 +11,7 @@ export class UpdateIssueDto {
   readonly description: string
 
   @IsOptional()
-  readonly labels?: Promise<Label[]>
+  readonly labels?: Label[]
 
   @IsNumber()
   @IsOptional()

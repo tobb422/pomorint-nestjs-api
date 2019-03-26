@@ -25,7 +25,7 @@ export class Label extends BaseEntity {
   user: User
 
   @ManyToMany(type => Issue, issue => issue.labels)
-  issues?: Promise<Issue[]>
+  issues?: Issue[]
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date

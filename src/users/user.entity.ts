@@ -31,10 +31,10 @@ export class User extends BaseEntity {
   image?: string
 
   @OneToMany(type => Label, label => label.user, { cascade: true })
-  labels?: Promise<Label[]>
+  labels?: Label[]
 
   @OneToMany(type => Issue, issue => issue.user, { cascade: true })
-  issues?: Promise<Issue[]>
+  issues?: Issue[]
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date

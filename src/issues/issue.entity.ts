@@ -37,13 +37,24 @@ export class Issue extends BaseEntity {
   @JoinColumn({ name: 'user_id' })
   user: User
 
-  @ManyToMany(type => Label, label => label.issues)
+  @ManyToMany(
+    type => Label,
+    label => label.issues,
+    { cascade: ['insert', 'update'] }
+  )
   @JoinTable()
-  labels?: Promise<Label[]>
+  labels?: Label[]
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date
 
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date
+
+  static CreateWithLabels(issueId: number, labelIds: number[]) {
+    this.createQueryBuilder('issues')
+        .relation(Issue, 'labels')
+        .of(issueId)
+        .add(labelIds)
+  }
 }

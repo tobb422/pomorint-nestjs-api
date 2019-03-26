@@ -8,7 +8,7 @@ export class CreateIssueDto {
   @IsString()
   readonly description: string
 
-  readonly labels?: Promise<Label[]>
+  readonly labels?: Label[]
 
   @IsNumber()
   readonly estimatePoint: number

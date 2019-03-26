@@ -21,6 +21,9 @@ export class IssuesService {
       console.log(e)
       throw new RecordInvalidException(e.detail)
     })
+    if (issue.labels) {
+      Issue.CreateWithLabels(issue.id, issue.labels.map(l => l.id))
+    }
     return issue
   }
 
