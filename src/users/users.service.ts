@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import * as jwt from 'jsonwebtoken'
 import { RecordInvalidException } from '../exception'
 import { User } from './user.entity'
 import { CreateUserDto, UpdateUserDto, GoogleUserDto } from './dto/index.dto'
+import { Label } from '../labels/label.entity'
 
 @Injectable()
 export class UsersService {
@@ -54,5 +54,10 @@ export class UsersService {
       console.log(e)
       throw new RecordInvalidException(e.detail)
     })
+  }
+
+  async findLabels(id: number): Promise<Label[]> {
+    const user = await this.userRepository.findOne(id, { relations: ['labels'] })
+    return user.labels
   }
 }

@@ -14,19 +14,20 @@ import {
 import { LabelsService } from './labels.service'
 import { Label } from './label.entity'
 import { CreateLabelDto } from './dto/create-label.dto'
+import { UsersService } from '../users/users.service';
 
 @Controller('labels')
 export class LabelsController {
-  constructor(private readonly labelsService: LabelsService) {}
+  constructor(private readonly labelsService: LabelsService, readonly usersService: UsersService) {}
 
   @Get('')
   async finAll(@Req() req): Promise<Label[]> {
-    return this.labelsService.findAll(req.user)
+    return this.usersService.findLabels(req.user.id)
   }
 
   @Post()
   @HttpCode(201)
-  create(
+  async create(
     @Req() req,
     @Body(new ValidationPipe()) body: CreateLabelDto,
   ): Promise<Label> {

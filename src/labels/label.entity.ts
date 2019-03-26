@@ -4,9 +4,9 @@ import {
   PrimaryGeneratedColumn,
   BaseEntity,
   ManyToOne,
-  JoinColumn,
   CreateDateColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
+  JoinColumn
 } from 'typeorm'
 import { User } from '../users/user.entity'
 
@@ -18,7 +18,7 @@ export class Label extends BaseEntity {
   @Column({ name: 'name' })
   name: string
 
-  @ManyToOne(type => User, user => user.id)
+  @ManyToOne(type => User, user => user.labels)
   @JoinColumn({ name: 'user_id' })
   user: User
 

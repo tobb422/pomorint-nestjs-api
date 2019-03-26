@@ -3,10 +3,13 @@ import {
   Column,
   PrimaryGeneratedColumn,
   BaseEntity,
+  OneToMany,
+  JoinColumn,
   CreateDateColumn,
   UpdateDateColumn
 } from 'typeorm'
 import { Length, IsEmail } from 'class-validator'
+import { Label } from '../labels/label.entity'
 
 @Entity('users')
 export class User extends BaseEntity {
@@ -26,6 +29,9 @@ export class User extends BaseEntity {
 
   @Column({ name: 'image', unique: true, nullable: true })
   image: string | null
+
+  @OneToMany(type => Label, label => label.user, { cascade: true })
+  labels: Label[]
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date
