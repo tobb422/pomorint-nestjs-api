@@ -9,6 +9,7 @@ import {
 } from 'typeorm'
 import { Length, IsEmail } from 'class-validator'
 import { Label } from '../labels/label.entity'
+import { Issue } from '../issues/issue.entity'
 
 @Entity('users')
 export class User extends BaseEntity {
@@ -20,17 +21,20 @@ export class User extends BaseEntity {
 
   @Column({ name: 'password', nullable: true })
   @Length(8, 16)
-  password: string | null
+  password?: string
 
   @Column({ name: 'email', unique: true })
   @IsEmail()
   email: string
 
   @Column({ name: 'image', unique: true, nullable: true })
-  image: string | null
+  image?: string
 
   @OneToMany(type => Label, label => label.user, { cascade: true })
-  labels: Promise<Label[]>
+  labels?: Promise<Label[]>
+
+  @OneToMany(type => Issue, issue => issue.user, { cascade: true })
+  issues?: Promise<Issue[]>
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date
