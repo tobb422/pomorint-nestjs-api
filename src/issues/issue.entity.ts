@@ -27,7 +27,7 @@ export class Issue extends BaseEntity {
   @Column({ name: 'estimate_point' })
   estimatePoint: number
 
-  @Column({ name: 'result_point' })
+  @Column({ name: 'result_point', default: 0 })
   resultPoint: number
 
   @Column({ name: 'archived', default: false })
