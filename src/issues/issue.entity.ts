@@ -30,7 +30,7 @@ export class Issue extends BaseEntity {
   @Column({ name: 'result_point' })
   resultPoint: number
 
-  @Column({ name: 'archived' })
+  @Column({ name: 'archived', default: false })
   archived: boolean
 
   @ManyToOne(type => User, user => user.issues)

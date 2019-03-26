@@ -8,9 +8,16 @@ import { AppService } from './app.service'
 import { UsersModule } from './users/users.module'
 import { AuthModule } from './auth/auth.module'
 import { LabelsModule } from './labels/labels.module'
+import { IssuesModule } from './issues/issues.module'
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), UsersModule, AuthModule, LabelsModule],
+  imports: [
+    TypeOrmModule.forRoot(),
+    UsersModule,
+    AuthModule,
+    LabelsModule,
+    IssuesModule
+  ],
   controllers: [AppController],
   providers: [
     AppService,

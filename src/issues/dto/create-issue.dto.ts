@@ -1,4 +1,4 @@
-import { IsNumber, IsString } from 'class-validator'
+import { IsNumber, IsString } from 'class-validator';
 import { Label } from '../../labels/label.entity'
 
 export class CreateIssueDto {
