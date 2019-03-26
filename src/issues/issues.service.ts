@@ -16,10 +16,6 @@ export class IssuesService {
     return await this.issueRepository.find({ user: user })
   }
 
-  async findById(id: number): Promise<Issue | undefined> {
-    return await this.issueRepository.findOne(id)
-  }
-
   async create(issue: Issue): Promise<Issue> {
     await this.issueRepository.insert(issue).catch(e => {
       console.log(e)
