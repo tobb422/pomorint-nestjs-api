@@ -4,8 +4,6 @@ import { Repository } from 'typeorm'
 import { RecordInvalidException } from '../exception'
 import { Label } from './label.entity'
 import { User } from '../users/user.entity'
-import { CreateLabelDto } from './dto/create-label.dto'
-// import { CreateUserDto, UpdateUserDto, GoogleUserDto } from './dto/index.dto'
 
 @Injectable()
 export class LabelsService {
@@ -14,7 +12,7 @@ export class LabelsService {
     private readonly labelRepository: Repository<Label>,
   ) {}
 
-  async findAll(user: User): Promise<Label[]> {
+  async findByUser(user: User): Promise<Label[]> {
     return await this.labelRepository.find({ user: user })
   }
 
@@ -30,18 +28,23 @@ export class LabelsService {
     return label
   }
 
-  async update(user: User, id: number, dto: CreateLabelDto): Promise<Label> {
-    await this.labelRepository.update({ id: id, user: user }, dto).catch(e => {
+  async update(label: Label): Promise<Label> {
+    await this.labelRepository.update(
+      { id: label.id, user: label.user },
+      label
+    ).catch(e => {
       console.log(e)
       throw new RecordInvalidException(e.detail)
     })
-    return (await this.findById(id)) as Label
+    return label
   }
 
-  delete(user: User, id: number): void {
-    this.labelRepository.delete({ id: id, user: user }).catch(e => {
-      console.log(e)
-      throw new RecordInvalidException(e.detail)
-    })
+  delete(label: Label): void {
+    this.labelRepository
+        .delete({ id: label.id, user: label.user })
+        .catch(e => {
+          console.log(e)
+          throw new RecordInvalidException(e.detail)
+        })
   }
 }

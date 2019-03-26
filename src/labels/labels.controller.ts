@@ -14,15 +14,14 @@ import {
 import { LabelsService } from './labels.service'
 import { Label } from './label.entity'
 import { CreateLabelDto } from './dto/create-label.dto'
-import { UsersService } from '../users/users.service';
 
 @Controller('labels')
 export class LabelsController {
-  constructor(private readonly labelsService: LabelsService, readonly usersService: UsersService) {}
+  constructor(private readonly labelsService: LabelsService) {}
 
   @Get('')
   async finAll(@Req() req): Promise<Label[]> {
-    return this.usersService.findLabels(req.user.id)
+    return this.labelsService.findByUser(req.user)
   }
 
   @Post()
@@ -31,9 +30,8 @@ export class LabelsController {
     @Req() req,
     @Body(new ValidationPipe()) body: CreateLabelDto,
   ): Promise<Label> {
-    return this.labelsService.create(Object.assign(body, {
-      user: req.user,
-    }) as Label)
+    const label = { user: req.user, ...body } as Label
+    return this.labelsService.create(label)
   }
 
   @Put(':id')
@@ -43,12 +41,14 @@ export class LabelsController {
     @Param('id', new ParseIntPipe()) id,
     @Body(new ValidationPipe()) body: CreateLabelDto,
   ): Promise<Label> {
-    return this.labelsService.update(req.user, id, body)
+    const label = { id: id, user: req.user, ...body } as Label
+    return this.labelsService.update(label)
   }
 
   @Delete(':id')
   @HttpCode(204)
   delete(@Req() req, @Param('id', new ParseIntPipe()) id): void {
-    return this.labelsService.delete(req.user, id)
+    const label = { id: id, user: req.user } as Label
+    return this.labelsService.delete(label)
   }
 }
