@@ -1,9 +1,16 @@
-import { Entity, Column, PrimaryGeneratedColumn, BaseEntity } from 'typeorm'
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  BaseEntity,
+  CreateDateColumn,
+  UpdateDateColumn
+} from 'typeorm'
 import { Length, IsEmail } from 'class-validator'
 
 @Entity('users')
 export class User extends BaseEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: number
 
   @Column({ name: 'name' })
@@ -19,4 +26,10 @@ export class User extends BaseEntity {
 
   @Column({ name: 'image', unique: true, nullable: true })
   image: string | null
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date
 }
