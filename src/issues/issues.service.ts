@@ -4,6 +4,7 @@ import { Repository } from 'typeorm'
 import { RecordInvalidException } from '../exception'
 import { Issue } from './issue.entity'
 import { User } from '../users/user.entity'
+import { Label } from '../labels/label.entity'
 
 @Injectable()
 export class IssuesService {
@@ -21,9 +22,7 @@ export class IssuesService {
       console.log(e)
       throw new RecordInvalidException(e.detail)
     })
-    if (issue.labels) {
-      Issue.CreateWithLabels(issue.id, issue.labels.map(l => l.id))
-    }
+    if (issue.labels) this.addLabels(issue, issue.labels)
     return issue
   }
 
@@ -35,6 +34,12 @@ export class IssuesService {
       console.log(e)
       throw new RecordInvalidException(e.detail)
     })
+    if (issue.labels) this.addLabels(issue, issue.labels)
+    return issue
+  }
+
+  async addLabels(issue: Issue, labels: Label[]): Promise<Issue> {
+    await Issue.CreateWithLabels(issue.id, labels.map(l => l.id))
     return issue
   }
 
