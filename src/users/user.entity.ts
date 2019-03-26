@@ -4,7 +4,6 @@ import {
   PrimaryGeneratedColumn,
   BaseEntity,
   OneToMany,
-  JoinColumn,
   CreateDateColumn,
   UpdateDateColumn
 } from 'typeorm'
@@ -31,7 +30,7 @@ export class User extends BaseEntity {
   image: string | null
 
   @OneToMany(type => Label, label => label.user, { cascade: true })
-  labels: Label[]
+  labels: Promise<Label[]>
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date
