@@ -15,7 +15,11 @@ export class UpdateIssueDto {
 
   @IsNumber()
   @IsOptional()
-  readonly pomo: number
+  readonly estimatePoint: number
+
+  @IsNumber()
+  @IsOptional()
+  readonly resultPoint: number
 
   @IsOptional()
   readonly archived: boolean

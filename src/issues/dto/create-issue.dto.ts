@@ -11,7 +11,7 @@ export class CreateIssueDto {
   readonly labels?: Promise<Label[]>
 
   @IsNumber()
-  readonly pomo: number
+  readonly estimatePoint: number
 
   readonly archived: boolean = false
 }

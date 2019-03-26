@@ -24,8 +24,11 @@ export class Issue extends BaseEntity {
   @Column('text', { name: 'description' })
   description: string
 
-  @Column({ name: 'pomo' })
-  pomo: number
+  @Column({ name: 'estimate_point' })
+  estimatePoint: number
+
+  @Column({ name: 'result_point' })
+  resultPoint: number
 
   @Column({ name: 'archived' })
   archived: boolean
