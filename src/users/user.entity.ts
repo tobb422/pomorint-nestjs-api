@@ -10,7 +10,7 @@ import { Length, IsEmail } from 'class-validator'
 
 @Entity('users')
 export class User extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   id: number
 
   @Column({ name: 'name' })
