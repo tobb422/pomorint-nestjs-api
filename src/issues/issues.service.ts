@@ -22,7 +22,6 @@ export class IssuesService {
       console.log(e)
       throw new RecordInvalidException(e.detail)
     })
-    // if (issue.labels) this.addLabels(issue, issue.labels)
     return issue
   }
 
@@ -32,7 +31,6 @@ export class IssuesService {
       console.log(e)
       throw new RecordInvalidException(e.detail)
     })
-    // if (updateLabels) this.addLabels(issue, issue.labels)
     return issue
   }
 
