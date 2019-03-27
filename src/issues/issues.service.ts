@@ -22,19 +22,17 @@ export class IssuesService {
       console.log(e)
       throw new RecordInvalidException(e.detail)
     })
-    if (issue.labels) this.addLabels(issue, issue.labels)
+    // if (issue.labels) this.addLabels(issue, issue.labels)
     return issue
   }
 
   async update(issue: Issue): Promise<Issue> {
-    await this.issueRepository.update(
-      { id: issue.id, user: issue.user },
-      issue
-    ).catch(e => {
+    const updateLabels = issue.labels
+    await this.issueRepository.save(issue).catch(e => {
       console.log(e)
       throw new RecordInvalidException(e.detail)
     })
-    if (issue.labels) this.addLabels(issue, issue.labels)
+    // if (updateLabels) this.addLabels(issue, issue.labels)
     return issue
   }
 
