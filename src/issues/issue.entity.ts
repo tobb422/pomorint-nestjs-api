@@ -39,10 +39,13 @@ export class Issue extends BaseEntity {
 
   @ManyToMany(
     type => Label,
-    label => label.issues,
-    { cascade: ['insert', 'update'] }
+    label => label.issues
   )
-  @JoinTable()
+  @JoinTable({
+    name: 'issue_labels',
+    joinColumn: { name: 'issue_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'label_id', referencedColumnName: 'id' },
+  })
   labels?: Label[]
 
   @CreateDateColumn({ name: 'created_at' })

@@ -24,7 +24,7 @@ export class Label extends BaseEntity {
   @JoinColumn({ name: 'user_id' })
   user: User
 
-  @ManyToMany(type => Issue, issue => issue.labels)
+  @ManyToMany(type => Issue, issue => issue.labels, { nullable: true })
   issues?: Issue[]
 
   @CreateDateColumn({ name: 'created_at' })

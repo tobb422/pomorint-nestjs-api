@@ -18,7 +18,7 @@ export class IssuesService {
   }
 
   async create(issue: Issue): Promise<Issue> {
-    await this.issueRepository.insert(issue).catch(e => {
+    await this.issueRepository.save(issue).catch(e => {
       console.log(e)
       throw new RecordInvalidException(e.detail)
     })

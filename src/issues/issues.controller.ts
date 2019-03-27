@@ -30,6 +30,8 @@ export class IssuesController {
     @Req() req,
     @Body(new ValidationPipe()) body: CreateIssueDto,
   ): Promise<Issue> {
+    console.log(body)
+    debugger
     const issue = { user: req.user, ...body } as Issue
     return this.issuesService.create(issue)
   }
@@ -41,7 +43,7 @@ export class IssuesController {
     @Param('id', new ParseIntPipe()) id,
     @Body(new ValidationPipe()) body: UpdateIssueDto,
   ): Promise<Issue> {
-    const issue = { id: id, user: req.user, ...body } as Issue
+    const issue = { user: req.user, ...body } as Issue
     return this.issuesService.update(issue)
   }
 

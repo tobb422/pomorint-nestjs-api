@@ -30,10 +30,10 @@ export class User extends BaseEntity {
   @Column({ name: 'image', unique: true, nullable: true })
   image?: string
 
-  @OneToMany(type => Label, label => label.user, { cascade: true })
+  @OneToMany(type => Label, label => label.user, { cascade: true, nullable: true })
   labels?: Label[]
 
-  @OneToMany(type => Issue, issue => issue.user, { cascade: true })
+  @OneToMany(type => Issue, issue => issue.user, { cascade: true, nullable: true })
   issues?: Issue[]
 
   @CreateDateColumn({ name: 'created_at' })
