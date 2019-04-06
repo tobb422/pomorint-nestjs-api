@@ -19,7 +19,7 @@ import { CreateIssueDto, UpdateIssueDto } from './dto/index.dto'
 export class IssuesController {
   constructor(private readonly issuesService: IssuesService) {}
 
-  @Get('')
+  @Get()
   async finAll(@Req() req): Promise<Issue[]> {
     return this.issuesService.findByUser(req.user)
   }
