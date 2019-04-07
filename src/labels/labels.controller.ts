@@ -19,7 +19,7 @@ import { CreateLabelDto } from './dto/create-label.dto'
 export class LabelsController {
   constructor(private readonly labelsService: LabelsService) {}
 
-  @Get('')
+  @Get()
   async finAll(@Req() req): Promise<Label[]> {
     return this.labelsService.findByUser(req.user)
   }
