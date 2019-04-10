@@ -9,6 +9,7 @@ import { UsersModule } from './users/users.module'
 import { AuthModule } from './auth/auth.module'
 import { LabelsModule } from './labels/labels.module'
 import { IssuesModule } from './issues/issues.module'
+import { IssueBoxesModule } from './issue-boxes/issue-boxes.module'
 
 @Module({
   imports: [
@@ -16,7 +17,8 @@ import { IssuesModule } from './issues/issues.module'
     UsersModule,
     AuthModule,
     LabelsModule,
-    IssuesModule
+    IssuesModule,
+    IssueBoxesModule
   ],
   controllers: [AppController],
   providers: [
