@@ -10,6 +10,7 @@ import {
 import { Length, IsEmail } from 'class-validator'
 import { Label } from '../labels/label.entity'
 import { Issue } from '../issues/issue.entity'
+import { IssueBox } from '../issue-boxes/issue-box.entity'
 
 @Entity('users')
 export class User extends BaseEntity {
@@ -35,6 +36,9 @@ export class User extends BaseEntity {
 
   @OneToMany(type => Issue, issue => issue.user, { cascade: true, nullable: true })
   issues?: Issue[]
+
+  @OneToMany(type => IssueBox, issueBox => issueBox.user, { cascade: true, nullable: true })
+  issueBox?: IssueBox[]
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date
