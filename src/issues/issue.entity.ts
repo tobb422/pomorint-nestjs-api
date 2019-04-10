@@ -12,6 +12,7 @@ import {
 } from 'typeorm'
 import { User } from '../users/user.entity'
 import { Label } from '../labels/label.entity'
+import { IssueBox } from '../issue-boxes/issue-box.entity'
 
 @Entity('issues')
 export class Issue extends BaseEntity {
@@ -36,6 +37,10 @@ export class Issue extends BaseEntity {
   @ManyToOne(type => User, user => user.issues)
   @JoinColumn({ name: 'user_id' })
   user: User
+
+  @ManyToOne(type => IssueBox, issueBox => issueBox.issues)
+  @JoinColumn({ name: 'issue_box_id' })
+  issueBox: IssueBox
 
   @ManyToMany(
     type => Label,
