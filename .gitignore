@@ -2,3 +2,5 @@ node_modules/
 .idea/
 ormconfig.json
 .env
+src/db/migrations/*
+

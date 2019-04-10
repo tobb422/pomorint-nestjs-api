@@ -8,5 +8,5 @@ export class GoogleUserDto {
   readonly email: string
 
   @IsString()
-  readonly image: string
+  readonly image?: string
 }
