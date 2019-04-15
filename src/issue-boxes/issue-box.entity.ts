@@ -30,7 +30,7 @@ export class IssueBox extends BaseEntity {
   @JoinColumn({ name: 'user_id' })
   user: User
 
-  @OneToMany(type => Issue, issue => issue.labels, { nullable: true })
+  @OneToMany(type => Issue, issue => issue.issueBox, { nullable: true })
   issues?: Issue[]
 
   @CreateDateColumn({ name: 'created_at' })
