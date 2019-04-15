@@ -15,7 +15,10 @@ export class IssueBoxesService {
   ]
 
   async findByUser(user: User): Promise<IssueBox[]> {
-    return await IssueBox.find({ where: [{ user: user }], relations: ['issues', 'issues.labels'] })
+    return await IssueBox.find({
+      where: [{ user: user }],
+      relations: ['issues', 'issues.labels']
+    })
   }
 
   async create(issueBox: IssueBox): Promise<IssueBox> {
