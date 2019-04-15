@@ -33,7 +33,7 @@ export class AuthService {
     const user = await this.usersService.findByEmail(dto.email)
     return this.createToken((!!user
       ? user
-      : this.usersService.createWithGoogle(user)) as User)
+      : await this.usersService.createWithGoogle(dto)) as User)
   }
 
   async validate(token: string): Promise<any> {

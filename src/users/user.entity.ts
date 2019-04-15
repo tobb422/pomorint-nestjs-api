@@ -14,11 +14,17 @@ import { IssueBox } from '../issue-boxes/issue-box.entity'
 
 @Entity('users')
 export class User extends BaseEntity {
+  constructor(init?: Partial<User>) {
+    super()
+    Object.assign(this, init)
+    return this
+  }
+
   @PrimaryGeneratedColumn()
   id: number
 
   @Column({ name: 'name' })
-  name: string
+  name?: string
 
   @Column({ name: 'password', nullable: true })
   @Length(8, 16)
@@ -38,7 +44,7 @@ export class User extends BaseEntity {
   issues?: Issue[]
 
   @OneToMany(type => IssueBox, issueBox => issueBox.user, { cascade: true, nullable: true })
-  issueBox?: IssueBox[]
+  issueBoxes?: IssueBox[]
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date

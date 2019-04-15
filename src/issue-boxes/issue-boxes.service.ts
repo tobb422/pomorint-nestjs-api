@@ -7,6 +7,13 @@ import { User } from '../users/user.entity'
 export class IssueBoxesService {
   constructor() {}
 
+  static DefaultBoxes: IssueBox[] = [
+    new IssueBox({ name: 'IceBox' }),
+    new IssueBox({ name: 'ToDo' }),
+    new IssueBox({ name: 'InProgress' }),
+    new IssueBox({ name: 'Done' })
+  ]
+
   async findByUser(user: User): Promise<IssueBox[]> {
     return await IssueBox.find({ user: user })
   }

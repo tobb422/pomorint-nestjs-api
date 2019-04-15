@@ -3,6 +3,7 @@ import { RecordInvalidException } from '../exception'
 import { User } from './user.entity'
 import { CreateUserDto, UpdateUserDto, GoogleUserDto } from './dto/index.dto'
 import { Label } from '../labels/label.entity'
+import { IssueBoxesService } from '../issue-boxes/issue-boxes.service'
 
 @Injectable()
 export class UsersService {
@@ -20,23 +21,22 @@ export class UsersService {
     return await User.findOne({ email: email })
   }
 
-  async create(dto: CreateUserDto): Promise<User> {
-    const user = new User()
-    user.email = dto.email
-    user.password = dto.password
-    user.name = dto.name
+  setupAccount(user: User): Promise<User> {
+    user.issueBoxes = IssueBoxesService.DefaultBoxes
     return user.save().catch(e => {
       console.log(e)
       throw new RecordInvalidException(e.detail)
     })
   }
 
+  async create(dto: CreateUserDto): Promise<User> {
+    const user = new User(dto as User)
+    return this.setupAccount(user)
+  }
+
   async createWithGoogle(dto: GoogleUserDto): Promise<User> {
-    await User.insert(dto).catch(e => {
-      console.log(e)
-      throw new RecordInvalidException(e.detail)
-    })
-    return dto as User
+    const user = new User(dto as User)
+    return this.setupAccount(user)
   }
 
   async update(id: number, dto: UpdateUserDto): Promise<User> {
