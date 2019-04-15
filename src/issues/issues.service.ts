@@ -13,7 +13,7 @@ export class IssuesService {
   }
 
   async create(issue: Issue): Promise<Issue> {
-    await Issue.save(issue).catch(e => {
+    await issue.save().catch(e => {
       console.log(e)
       throw new RecordInvalidException(e.detail)
     })

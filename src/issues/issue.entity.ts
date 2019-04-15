@@ -16,6 +16,12 @@ import { IssueBox } from '../issue-boxes/issue-box.entity'
 
 @Entity('issues')
 export class Issue extends BaseEntity {
+  constructor(init?: Partial<Issue>) {
+    super()
+    Object.assign(this, init)
+    return this
+  }
+
   @PrimaryGeneratedColumn()
   id: number
 

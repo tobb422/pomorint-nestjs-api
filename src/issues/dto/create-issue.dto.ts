@@ -1,5 +1,6 @@
-import { IsNumber, IsString } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator'
 import { Label } from '../../labels/label.entity'
+import { IssueBox } from '../../issue-boxes/issue-box.entity'
 
 export class CreateIssueDto {
   @IsString()
@@ -7,6 +8,8 @@ export class CreateIssueDto {
 
   @IsString()
   readonly description: string
+
+  readonly issueBox?: IssueBox
 
   readonly labels?: Label[]
 
