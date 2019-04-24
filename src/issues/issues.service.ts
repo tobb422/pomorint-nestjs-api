@@ -14,8 +14,8 @@ export class IssuesService {
   }
 
   async create(issue: Issue): Promise<Issue> {
-    const issueBox = await IssueBox.findOne(issue.issueBox.id)
-    issue.boxIndex = issueBox.issues.length
+    const issueBox = await IssueBox.findOne(issue.issueBox.id, { relations: ['issues'] })
+    issue.boxIndex = issueBox.issues ? issueBox.issues.length : 0
     await issue.save().catch(e => {
       console.log(e)
       throw new RecordInvalidException(e.detail)
