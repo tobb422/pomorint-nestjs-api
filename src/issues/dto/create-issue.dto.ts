@@ -9,7 +9,7 @@ export class CreateIssueDto {
   @IsString()
   readonly description: string
 
-  readonly issueBox?: IssueBox
+  readonly issueBox: IssueBox
 
   readonly labels?: Label[]
 

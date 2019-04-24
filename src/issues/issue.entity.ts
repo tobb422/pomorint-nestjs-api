@@ -37,8 +37,8 @@ export class Issue extends BaseEntity {
   @Column({ name: 'result_point', default: 0 })
   resultPoint: number
 
-  @Column({ name: 'list_index' })
-  listIndex: number
+  @Column({ name: 'box_index' })
+  boxIndex: number
 
   @Column({ name: 'archived', default: false })
   archived: boolean

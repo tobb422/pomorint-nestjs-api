@@ -3,16 +3,19 @@ import { RecordInvalidException } from '../exception'
 import { Issue } from './issue.entity'
 import { User } from '../users/user.entity'
 import { Label } from '../labels/label.entity'
+import { IssueBox } from '../issue-boxes/issue-box.entity'
 
 @Injectable()
 export class IssuesService {
   constructor() {}
 
   async findByUser(user: User): Promise<Issue[]> {
-    return await Issue.find({ where: { user: user, archived: false }, relations: ['labels'] },)
+    return await Issue.find({ where: { user: user, archived: false }, relations: ['labels'] })
   }
 
   async create(issue: Issue): Promise<Issue> {
+    const issueBox = await IssueBox.findOne(issue.issueBox.id)
+    issue.boxIndex = issueBox.issues.length
     await issue.save().catch(e => {
       console.log(e)
       throw new RecordInvalidException(e.detail)
