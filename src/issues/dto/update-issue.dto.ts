@@ -1,5 +1,6 @@
 import { IsNumber, IsString, IsOptional } from 'class-validator'
 import { Label } from '../../labels/label.entity'
+import { IssueBox } from '../../issue-boxes/issue-box.entity'
 
 export class UpdateIssueDto {
   @IsString()
@@ -12,6 +13,9 @@ export class UpdateIssueDto {
 
   @IsOptional()
   readonly labels?: Label[]
+
+  @IsOptional()
+  readonly issueBox?: IssueBox
 
   @IsNumber()
   @IsOptional()

@@ -14,6 +14,7 @@ import {
 import { IssuesService } from './issues.service'
 import { Issue } from './issue.entity'
 import { CreateIssueDto, UpdateIssueDto } from './dto/index.dto'
+import { debug } from 'util';
 
 @Controller('issues')
 export class IssuesController {
@@ -36,12 +37,16 @@ export class IssuesController {
 
   @Put(':id')
   @HttpCode(201)
-  update(
+  async update(
     @Req() req,
     @Param('id', new ParseIntPipe()) id,
     @Body(new ValidationPipe()) body: UpdateIssueDto,
   ): Promise<Issue> {
-    const issue = new Issue({ user: req.user, ...body })
+    const issues = await this.issuesService.findByUser(req.user)
+    const issue = issues.find(issue => issue.id === id)
+    Object.keys(body).forEach(key => {
+      if (key !== 'id') issue[key] = body[key]
+    })
     return this.issuesService.update(issue)
   }
 

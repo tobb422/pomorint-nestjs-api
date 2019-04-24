@@ -21,8 +21,7 @@ export class IssuesService {
   }
 
   async update(issue: Issue): Promise<Issue> {
-    const updateLabels = issue.labels
-    await Issue.save(issue).catch(e => {
+    await issue.save().catch(e => {
       console.log(e)
       throw new RecordInvalidException(e.detail)
     })
