@@ -32,9 +32,7 @@ export class IssuesController {
     @Req() req,
     @Body(new ValidationPipe()) body: CreateIssueDto,
   ): Promise<Issue> {
-    const issueBoxes = await this.issueBoxesService.findByUser(req.user)
-    const box = issueBoxes.find(box => box.id === body.issueBox.id)
-    const issue = new Issue({ user: req.user, listIndex: box.issues.length, ...body })
+    const issue = new Issue({ user: req.user, ...body })
     return this.issuesService.create(issue)
   }
 

@@ -17,7 +17,8 @@ export class IssueBoxesService {
   async findByUser(user: User): Promise<IssueBox[]> {
     return await IssueBox.find({
       where: [{ user: user }],
-      relations: ['issues', 'issues.labels']
+      relations: ['issues', 'issues.labels'],
+      order: { id: "ASC" }
     })
   }
 
