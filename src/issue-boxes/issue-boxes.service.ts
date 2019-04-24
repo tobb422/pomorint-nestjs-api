@@ -18,7 +18,12 @@ export class IssueBoxesService {
     return await IssueBox.find({
       where: [{ user: user }],
       relations: ['issues', 'issues.labels'],
-      order: { id: "ASC" }
+      order: { id: 'ASC' }
+    }).then(res => {
+      return res.map(r => {
+        r.issues = r.issues.sort((a, b) => a.boxIndex - b.boxIndex)
+        return r
+      })
     })
   }
 

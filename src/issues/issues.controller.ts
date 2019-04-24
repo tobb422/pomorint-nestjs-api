@@ -43,12 +43,8 @@ export class IssuesController {
     @Param('id', new ParseIntPipe()) id,
     @Body(new ValidationPipe()) body: UpdateIssueDto,
   ): Promise<Issue> {
-    const issues = await this.issuesService.findByUser(req.user)
-    const issue = issues.find(issue => issue.id === id)
-    Object.keys(body).forEach(key => {
-      if (key !== 'id') issue[key] = body[key]
-    })
-    return this.issuesService.update(issue)
+    const issue = new Issue({ user: req.user, ...body })
+    return this.issuesService.update(issue, id)
   }
 
   @Put(':id/archived')
@@ -57,8 +53,8 @@ export class IssuesController {
     @Req() req,
     @Param('id', new ParseIntPipe()) id
   ): Promise<Issue> {
-    const issue = { id: id, user: req.user, archived: true } as Issue
-    return this.issuesService.update(issue)
+    const issue = new Issue({ user: req.user, archived: true })
+    return this.issuesService.update(issue, id)
   }
 
   @Delete(':id')

@@ -10,7 +10,7 @@ export class IssuesService {
   constructor() {}
 
   async findByUser(user: User): Promise<Issue[]> {
-    return await Issue.find({ where: { user: user, archived: false }, relations: ['labels'] })
+    return await Issue.find({ where: { user: user, archived: false }, relations: ['labels', 'issueBox'] })
   }
 
   async create(issue: Issue): Promise<Issue> {
@@ -23,10 +23,38 @@ export class IssuesService {
     return issue
   }
 
-  async update(issue: Issue): Promise<Issue> {
+  async update(params: Issue, id: number): Promise<Issue> {
+    const issues = await this.findByUser(params.user)
+    const issue = issues.find(issue => issue.id === id)
+    const oldBoxId = issue.issueBox.id
+
+    Object.keys(params).forEach(key => {
+      if (key !== 'id') issue[key] = params[key]
+    })
     await issue.save().catch(e => {
       console.log(e)
       throw new RecordInvalidException(e.detail)
+    })
+
+    if (!params.boxIndex) return issue
+
+    const newBoxId = issue.issueBox.id
+    const boxes = await IssueBox.findByIds(
+      [oldBoxId, newBoxId],
+      { relations: ['issues'] }
+    )
+    boxes.forEach(async box => {
+      if (box.id === newBoxId) {
+        box.issues.map(is => {
+          if (is.id === issue.id) return is
+
+          if (is.boxIndex >= issue.boxIndex) {
+            is.boxIndex += 1
+          }
+          return is
+        })
+      }
+      await box.save()
     })
     return issue
   }
