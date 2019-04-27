@@ -14,6 +14,12 @@ import { Issue } from '../issues/issue.entity'
 
 @Entity('labels')
 export class Label extends BaseEntity {
+  constructor(init?: Partial<Label>) {
+    super()
+    Object.assign(this, init)
+    return this
+  }
+
   @PrimaryGeneratedColumn()
   id: number
 
