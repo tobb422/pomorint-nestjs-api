@@ -19,17 +19,14 @@ export class IssueBoxesService {
       where: [{ user: user }],
       relations: ['issues', 'issues.labels'],
       order: { id: 'ASC' }
-    }).then(res => {
-      return res.map(r => {
-        r.issues = r.issues.sort((a, b) => a.boxIndex - b.boxIndex)
-        return r
-      })
-    })
+    }).then(res => res.map(r => {
+      r.issues = r.issues.sort((a, b) => a.boxIndex - b.boxIndex)
+      return r
+    }))
   }
 
   async create(issueBox: IssueBox): Promise<IssueBox> {
     await IssueBox.insert(issueBox).catch(e => {
-      console.log(e)
       throw new RecordInvalidException(e.detail)
     })
     return issueBox
@@ -50,7 +47,6 @@ export class IssueBoxesService {
     IssueBox
       .delete({ id: issueBox.id, user: issueBox.user })
       .catch(e => {
-        console.log(e)
         throw new RecordInvalidException(e.detail)
       })
   }
