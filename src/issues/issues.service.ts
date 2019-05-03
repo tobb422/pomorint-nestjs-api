@@ -27,7 +27,6 @@ export class IssuesService {
     const issues = await this.findByUser(params.user)
     const issue = issues.find(issue => issue.id === id)
     const oldBoxId = issue.issueBox.id
-    const oldBoxIndex = issue.boxIndex
 
     Object.keys(params).forEach(key => {
       if (key !== 'id') issue[key] = params[key]
@@ -37,40 +36,25 @@ export class IssuesService {
       throw new RecordInvalidException(e.detail)
     })
 
-    if (!params.boxIndex) return issue
+    if (typeof params.boxIndex === undefined) return issue
 
     const newBoxId = issue.issueBox.id
-    const newBoxIndex = issue.boxIndex
     const boxes = await IssueBox.findByIds(
       [oldBoxId, newBoxId],
       { relations: ['issues'] }
     )
-    boxes.forEach(async box => {
-      if (box.id === newBoxId) {
-        box.issues.forEach(i => {
-          if (i.id === issue.id) return
+    boxes.forEach(box => {
+      let issues = box.issues.sort((a, b) => a.boxIndex - b.boxIndex)
 
-          if (oldBoxId === newBoxId) {
-            if (oldBoxIndex > newBoxIndex) {
-              if (i.boxIndex >= newBoxIndex) i.boxIndex += 1
-            } else if (oldBoxIndex < newBoxIndex) {
-              if (i.boxIndex <= newBoxIndex) i.boxIndex -= 1
-            }
-            i.save()
-          }
-          if (oldBoxId !== newBoxId && i.boxIndex >= newBoxIndex) {
-            i.boxIndex += 1
-            i.save()
-          }
-        })
-      } else if (box.id === oldBoxId) {
-        box.issues
-           .sort((a, b) => a.boxIndex - b.boxIndex)
-           .forEach((i, index) => {
-             i.boxIndex = index
-             i.save()
-           })
+      if (box.id === newBoxId) {
+        issues = issues.filter(i => i.id !== issue.id)
+        issues.splice(issue.boxIndex, 0, issue)
       }
+
+      issues.forEach((issue, index) => {
+        issue.boxIndex = index
+        issue.save()
+      })
     })
     return issue
   }
