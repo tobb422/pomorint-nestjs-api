@@ -47,8 +47,12 @@ export class IssueBoxesController {
     @Param('id', new ParseIntPipe()) id,
     @Body(new ValidationPipe()) body: CreateIssueBoxDto,
   ): Promise<IssueBox> {
-    const issueBox = { id: id, user: req.user, ...body } as IssueBox
-    return this.issueBoxesService.update(issueBox)
+    const params = {
+      user: req.user,
+      ...body
+    }
+    const issueBox = new IssueBox(params)
+    return this.issueBoxesService.update(issueBox, id)
   }
 
   @Delete(':id')

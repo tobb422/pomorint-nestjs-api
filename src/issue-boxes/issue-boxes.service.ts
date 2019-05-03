@@ -29,19 +29,20 @@ export class IssueBoxesService {
     await issueBox.save().catch(e => {
       throw new RecordInvalidException(e.detail)
     })
-    console.log(issueBox)
     return issueBox
   }
 
-  async update(issueBox: IssueBox): Promise<IssueBox> {
-    await IssueBox.update(
-      { id: issueBox.id, user: issueBox.user },
-      issueBox
-    ).catch(e => {
+  async update(params: IssueBox, id: Number): Promise<IssueBox> {
+    const issueBoxes = await this.findByUser(params.user)
+    const box = issueBoxes.find(box => box.id === id)
+    Object.keys(params).forEach(key => {
+      if (key !== 'id') box[key] = params[key]
+    })
+    await box.save().catch(e => {
       console.log(e)
       throw new RecordInvalidException(e.detail)
     })
-    return issueBox
+    return box
   }
 
   delete(issueBox: IssueBox): void {
