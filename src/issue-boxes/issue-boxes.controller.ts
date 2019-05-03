@@ -58,7 +58,7 @@ export class IssueBoxesController {
   @Delete(':id')
   @HttpCode(204)
   delete(@Req() req, @Param('id', new ParseIntPipe()) id): void {
-    const issueBox = { id: id, user: req.user } as IssueBox
+    const issueBox = new IssueBox({ id: id, user: req.user })
     return this.issueBoxesService.delete(issueBox)
   }
 }
