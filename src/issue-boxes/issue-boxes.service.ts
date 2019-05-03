@@ -26,9 +26,10 @@ export class IssueBoxesService {
   }
 
   async create(issueBox: IssueBox): Promise<IssueBox> {
-    await IssueBox.insert(issueBox).catch(e => {
+    await issueBox.save().catch(e => {
       throw new RecordInvalidException(e.detail)
     })
+    console.log(issueBox)
     return issueBox
   }
 

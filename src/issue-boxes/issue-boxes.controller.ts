@@ -13,6 +13,7 @@ import {
 } from '@nestjs/common'
 import { IssueBoxesService } from './issue-boxes.service'
 import { IssueBox } from './issue-box.entity'
+import { Issue } from '../issues/issue.entity'
 import { CreateIssueBoxDto } from './dto/create-issue-box.dto'
 
 @Controller('issue-boxes')
@@ -30,7 +31,12 @@ export class IssueBoxesController {
     @Req() req,
     @Body(new ValidationPipe()) body: CreateIssueBoxDto,
   ): Promise<IssueBox> {
-    const issueBox = { user: req.user, ...body } as IssueBox
+    const params = {
+      user: req.user,
+      issues: [] as Issue[],
+      ...body
+    }
+    const issueBox = new IssueBox(params)
     return this.issueBoxesService.create(issueBox)
   }
 
