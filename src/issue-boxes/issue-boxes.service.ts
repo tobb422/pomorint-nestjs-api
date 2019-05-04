@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { RecordInvalidException } from '../exception'
 import { IssueBox } from './issue-box.entity'
+import { Issue } from '../issues/issue.entity'
 import { User } from '../users/user.entity'
 
 @Injectable()
@@ -45,8 +46,16 @@ export class IssueBoxesService {
     return box
   }
 
-  delete(issueBox: IssueBox): void {
-    IssueBox
+  async delete(issueBox: IssueBox): Promise<void> {
+    const box = await IssueBox.findOne(issueBox.id, {
+      relations: ['issues', 'issues.labels']
+    })
+
+    const issues = box.issues
+    if (issues.length > 0) {
+      await Issue.delete(box.issues.map(i => i.id))
+    }
+    await IssueBox
       .delete({ id: issueBox.id, user: issueBox.user })
       .catch(e => {
         throw new RecordInvalidException(e.detail)
