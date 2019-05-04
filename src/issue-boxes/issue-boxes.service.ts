@@ -32,14 +32,14 @@ export class IssueBoxesService {
     return issueBox
   }
 
-  async update(params: IssueBox, id: Number): Promise<IssueBox> {
-    const issueBoxes = await this.findByUser(params.user)
-    const box = issueBoxes.find(box => box.id === id)
+  async update(params: IssueBox, id: number): Promise<IssueBox> {
+    const box = await IssueBox.findOne(id, {
+      relations: ['issues', 'issues.labels']
+    })
     Object.keys(params).forEach(key => {
       if (key !== 'id') box[key] = params[key]
     })
     await box.save().catch(e => {
-      console.log(e)
       throw new RecordInvalidException(e.detail)
     })
     return box
