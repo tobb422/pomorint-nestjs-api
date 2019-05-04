@@ -12,7 +12,7 @@ import {
 import { User } from '../users/user.entity'
 import { Issue } from '../issues/issue.entity'
 
-@Entity('issue-boxes')
+@Entity('issue_boxes')
 export class IssueBox extends BaseEntity {
   constructor(init?: Partial<IssueBox>) {
     super()
