@@ -34,9 +34,7 @@ export class IssueBoxesService {
   }
 
   async update(params: IssueBox, id: number): Promise<IssueBox> {
-    const box = await IssueBox.findOne(id, {
-      relations: ['issues', 'issues.labels']
-    })
+    const box = await IssueBox.findOneWithIssues(id)
     Object.keys(params).forEach(key => {
       if (key !== 'id') box[key] = params[key]
     })
@@ -47,10 +45,7 @@ export class IssueBoxesService {
   }
 
   async delete(issueBox: IssueBox): Promise<void> {
-    const box = await IssueBox.findOne(issueBox.id, {
-      relations: ['issues', 'issues.labels']
-    })
-
+    const box = await IssueBox.findOneWithIssues(issueBox.id)
     const issues = box.issues
     if (issues.length > 0) {
       await Issue.delete(box.issues.map(i => i.id))

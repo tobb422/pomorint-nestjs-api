@@ -38,4 +38,10 @@ export class IssueBox extends BaseEntity {
 
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date
+
+  static async findOneWithIssues(id): Promise<IssueBox> {
+    return await IssueBox.findOne(id, {
+      relations: ['issues', 'issues.labels']
+    })
+  }
 }

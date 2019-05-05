@@ -10,22 +10,26 @@ export class IssuesService {
   constructor() {}
 
   async findByUser(user: User): Promise<Issue[]> {
-    return await Issue.find({ where: { user: user }, relations: ['labels', 'issueBox'] })
+    return await Issue.find(
+      { where: { user: user },
+      relations: ['labels', 'issueBox'] }
+    )
   }
 
   async create(issue: Issue): Promise<Issue> {
-    const issueBox = await IssueBox.findOne(issue.issueBox.id, { relations: ['issues'] })
+    const issueBox = await IssueBox.findOneWithIssues(issue.issueBox.id)
     issue.boxIndex = issueBox.issues ? issueBox.issues.length : 0
     await issue.save().catch(e => {
-      console.log(e)
       throw new RecordInvalidException(e.detail)
     })
     return issue
   }
 
   async update(params: Issue, id: number): Promise<Issue> {
-    const issues = await this.findByUser(params.user)
-    const issue = issues.find(issue => issue.id === id)
+    const issue = await Issue.findOne({
+      where: { id: id, user: params.user },
+      relations: ['labels', 'issueBox']
+    })
     const oldBoxId = issue.issueBox.id
 
     Object.keys(params).forEach(key => {
@@ -43,6 +47,8 @@ export class IssuesService {
       [oldBoxId, newBoxId],
       { relations: ['issues'] }
     )
+
+    let test = [] as Issue[]
     boxes.forEach(box => {
       let issues = box.issues.sort((a, b) => a.boxIndex - b.boxIndex)
 
@@ -51,11 +57,13 @@ export class IssuesService {
         issues.splice(issue.boxIndex, 0, issue)
       }
 
-      issues.forEach((issue, index) => {
+      test = test.concat(issues.map((issue, index) => {
         issue.boxIndex = index
-        issue.save()
-      })
+        return issue
+      }))
     })
+    Issue.save(test)
+
     return issue
   }
 
