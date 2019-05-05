@@ -47,16 +47,6 @@ export class IssuesController {
     return this.issuesService.update(issue, id)
   }
 
-  @Put(':id/archived')
-  @HttpCode(201)
-  archived(
-    @Req() req,
-    @Param('id', new ParseIntPipe()) id
-  ): Promise<Issue> {
-    const issue = new Issue({ user: req.user, archived: true })
-    return this.issuesService.update(issue, id)
-  }
-
   @Delete(':id')
   @HttpCode(204)
   delete(@Req() req, @Param('id', new ParseIntPipe()) id): void {

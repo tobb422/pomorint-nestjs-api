@@ -57,7 +57,7 @@ export class IssueBoxesController {
 
   @Delete(':id')
   @HttpCode(204)
-  delete(@Req() req, @Param('id', new ParseIntPipe()) id): void {
+  delete(@Req() req, @Param('id', new ParseIntPipe()) id): Promise<void> {
     const issueBox = new IssueBox({ id: id, user: req.user })
     return this.issueBoxesService.delete(issueBox)
   }

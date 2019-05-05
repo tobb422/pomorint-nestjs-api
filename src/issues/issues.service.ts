@@ -10,7 +10,7 @@ export class IssuesService {
   constructor() {}
 
   async findByUser(user: User): Promise<Issue[]> {
-    return await Issue.find({ where: { user: user, archived: false }, relations: ['labels', 'issueBox'] })
+    return await Issue.find({ where: { user: user }, relations: ['labels', 'issueBox'] })
   }
 
   async create(issue: Issue): Promise<Issue> {
