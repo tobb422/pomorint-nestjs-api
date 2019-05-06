@@ -30,7 +30,7 @@ export class LabelsController {
     @Req() req,
     @Body(new ValidationPipe()) body: CreateLabelDto,
   ): Promise<Label> {
-    const label = { user: req.user, ...body } as Label
+    const label = new Label({ user: req.user, ...body })
     return this.labelsService.create(label)
   }
 

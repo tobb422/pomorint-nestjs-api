@@ -3,6 +3,6 @@ import { ApiModelProperty } from '@nestjs/swagger'
 
 export class CreateLabelDto {
   @IsString()
-  @ApiModelProperty()
+  @ApiModelProperty({ required: true })
   readonly name: string
 }
