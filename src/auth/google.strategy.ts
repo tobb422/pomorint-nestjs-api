@@ -15,9 +15,9 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
   constructor(auth: AuthService) {
     super(
       <StrategyOptionWithRequest>{
-        clientID: process.env.clientID,
-        clientSecret: process.env.clientSecret,
-        callbackURL: `${process.env.baseUrl}auth/google/callback`,
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL: `${process.env.API_URL}auth/google/callback`,
         passReqToCallback: true,
       },
       <VerifyFunctionWithRequest>(async (

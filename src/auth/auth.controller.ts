@@ -40,7 +40,7 @@ export class AuthController {
     const params = {
       session: false,
       scope: ['profile', 'email'],
-      callbackURL: `${process.env.baseUrl}auth/google/callback`,
+      callbackURL: `${process.env.API_URL}auth/google/callback`,
     }
     authenticate(provider, params)(req, res, next)
   }
@@ -55,11 +55,11 @@ export class AuthController {
     const params = {
       session: false,
       state: req.query.state,
-      callbackURL: `${process.env.baseUrl}auth/google/callback`,
+      callbackURL: `${process.env.API_URL}auth/google/callback`,
     }
     return authenticate(provider, params, (err, token) => {
       if (err) return next(err)
-      res.redirect(`${process.env.authCallbackUrl}?token=${token}`)
+      res.redirect(`${process.env.BASE_URL}/auth/callback?token=${token}`)
     })(req, res, next)
   }
 }
