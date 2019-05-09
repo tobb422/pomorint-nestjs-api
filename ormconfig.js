@@ -16,5 +16,5 @@ module.exports = {
     "migrationsDir": "src/db/migrations"
   },
   "synchronize": false,
-  "ssl": true
+  "ssl": process.env.NODE_ENV === 'production'
 }
