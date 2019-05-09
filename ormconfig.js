@@ -15,5 +15,6 @@ module.exports = {
   "cli": {
     "migrationsDir": "src/db/migrations"
   },
-  "synchronize": false
+  "synchronize": false,
+  "ssl": true
 }
