@@ -58,8 +58,6 @@ export class AuthController {
       callbackURL: `${process.env.API_URL}auth/google/callback`,
     }
     return authenticate(provider, params, (err, token) => {
-      console.log(err)
-      console.log(token)
       if (err) return next(err)
       res.redirect(`${process.env.BASE_URL}auth/callback?token=${token}`)
     })(req, res, next)
