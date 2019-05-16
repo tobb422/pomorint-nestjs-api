@@ -13,7 +13,7 @@ module.exports = {
   "entities": ["src/**/**.entity{.ts,.js}"],
   "migrations": ["db/migrations/**/**.ts"],
   "cli": {
-    "migrationsDir": "src/db/migrations"
+    "migrationsDir": "db/migrations"
   },
   "synchronize": false,
   "ssl": process.env.NODE_ENV === 'production'
