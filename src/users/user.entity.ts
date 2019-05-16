@@ -3,11 +3,10 @@ import {
   Column,
   PrimaryGeneratedColumn,
   BaseEntity,
-  OneToMany,
-  CreateDateColumn,
-  UpdateDateColumn
+  OneToMany
 } from 'typeorm'
 import { Length, IsEmail } from 'class-validator'
+import { DateEntity } from '../common/entity/date.entity'
 import { Label } from '../labels/label.entity'
 import { Issue } from '../issues/issue.entity'
 import { IssueBox } from '../issue-boxes/issue-box.entity'
@@ -46,9 +45,6 @@ export class User extends BaseEntity {
   @OneToMany(type => IssueBox, issueBox => issueBox.user, { cascade: true, nullable: true })
   issueBoxes?: IssueBox[]
 
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date
+  @Column(type => DateEntity)
+  date: DateEntity
 }

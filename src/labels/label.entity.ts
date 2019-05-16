@@ -5,10 +5,9 @@ import {
   BaseEntity,
   ManyToOne,
   ManyToMany,
-  CreateDateColumn,
-  UpdateDateColumn,
   JoinColumn
 } from 'typeorm'
+import { DateEntity } from '../common/entity/date.entity'
 import { User } from '../users/user.entity'
 import { Issue } from '../issues/issue.entity'
 
@@ -33,9 +32,6 @@ export class Label extends BaseEntity {
   @ManyToMany(type => Issue, issue => issue.labels, { nullable: true })
   issues?: Issue[]
 
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date
+  @Column(type => DateEntity)
+  date: DateEntity
 }

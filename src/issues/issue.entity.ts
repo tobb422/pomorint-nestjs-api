@@ -5,11 +5,10 @@ import {
   BaseEntity,
   ManyToOne,
   ManyToMany,
-  CreateDateColumn,
-  UpdateDateColumn,
   JoinColumn,
   JoinTable
 } from 'typeorm'
+import { DateEntity } from '../common/entity/date.entity'
 import { User } from '../users/user.entity'
 import { Label } from '../labels/label.entity'
 import { IssueBox } from '../issue-boxes/issue-box.entity'
@@ -62,11 +61,8 @@ export class Issue extends BaseEntity {
   })
   labels?: Label[]
 
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date
+  @Column(type => DateEntity)
+  date: DateEntity
 
   static CreateWithLabels(issueId: number, labelIds: number[]) {
     this.createQueryBuilder('issues')
