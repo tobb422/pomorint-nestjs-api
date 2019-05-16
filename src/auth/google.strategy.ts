@@ -11,7 +11,6 @@ import { GoogleUserDto } from '../users/dto/google-user.dto'
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
-  // Facebook strategy should be pretty much the same
   constructor(auth: AuthService) {
     super(
       <StrategyOptionWithRequest>{
