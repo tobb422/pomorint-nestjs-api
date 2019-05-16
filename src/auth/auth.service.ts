@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import * as jwt from 'jsonwebtoken'
-import { NotFoundException, UnauthorizedException } from '../exception'
+import { NotFoundException, UnauthorizedException } from '../shared/exception'
 import { User } from '../users/user.entity'
 import { UsersService } from '../users/users.service'
 import {

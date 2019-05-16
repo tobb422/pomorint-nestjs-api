@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app.module'
-import { logger } from './middleware/logger.middleware'
+import { logger } from './shared/middleware/logger.middleware'
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import 'dotenv'
 

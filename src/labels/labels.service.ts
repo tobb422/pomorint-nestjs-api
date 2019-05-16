@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { RecordInvalidException } from '../exception'
+import { RecordInvalidException } from '../shared/exception'
 import { Label } from './label.entity'
 import { User } from '../users/user.entity'
 

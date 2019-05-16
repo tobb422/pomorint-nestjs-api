@@ -11,7 +11,7 @@ module.exports = {
   "password": connectionOptions.password,
   "database": process.env.DATABASE_NAME,
   "entities": ["src/**/**.entity{.ts,.js}"],
-  "migrations": ["src/db/migrations/**/**.ts"],
+  "migrations": ["db/migrations/**/**.ts"],
   "cli": {
     "migrationsDir": "src/db/migrations"
   },

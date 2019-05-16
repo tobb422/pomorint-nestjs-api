@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { RecordInvalidException } from '../exception'
+import { RecordInvalidException } from '../shared/exception'
 import { User } from './user.entity'
 import { CreateUserDto, UpdateUserDto, GoogleUserDto } from './dto/index.dto'
 import { Label } from '../labels/label.entity'

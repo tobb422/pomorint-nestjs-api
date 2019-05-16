@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'
 import { APP_GUARD } from '@nestjs/core'
-import { CustomAuthGuard } from './auth.gurad'
+import { CustomAuthGuard } from './shared/guard/check-logged-in-user.guard'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { Connection } from 'typeorm'
 import { UsersModule } from './users/users.module'
