@@ -32,6 +32,6 @@ export class Label extends BaseEntity {
   @ManyToMany(type => Issue, issue => issue.labels, { nullable: true })
   issues?: Issue[]
 
-  @Column(type => DateEntity)
+  @Column(type => DateEntity, { prefix: false })
   date: DateEntity
 }

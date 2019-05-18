@@ -32,7 +32,7 @@ export class IssueBox extends BaseEntity {
   @OneToMany(type => Issue, issue => issue.issueBox, { nullable: true })
   issues?: Issue[]
 
-  @Column(type => DateEntity)
+  @Column(type => DateEntity, { prefix: false })
   date: DateEntity
 
   static async findOneWithIssues(id): Promise<IssueBox> {

@@ -61,7 +61,7 @@ export class Issue extends BaseEntity {
   })
   labels?: Label[]
 
-  @Column(type => DateEntity)
+  @Column(type => DateEntity, { prefix: false })
   date: DateEntity
 
   static CreateWithLabels(issueId: number, labelIds: number[]) {

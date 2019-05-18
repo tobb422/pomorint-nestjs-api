@@ -45,6 +45,6 @@ export class User extends BaseEntity {
   @OneToMany(type => IssueBox, issueBox => issueBox.user, { cascade: true, nullable: true })
   issueBoxes?: IssueBox[]
 
-  @Column(type => DateEntity)
+  @Column(type => DateEntity, { prefix: false })
   date: DateEntity
 }
