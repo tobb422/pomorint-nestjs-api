@@ -10,7 +10,7 @@ export class CustomAuthGuard extends AuthGuard('bearer') {
     return (await super.canActivate(context)) as boolean
   }
 
-  handleRequest(err, user, info) {
-    return super.handleRequest(err, user, info)
+  handleRequest(err, user, info, context) {
+    return super.handleRequest(err, user, info, context)
   }
 }
