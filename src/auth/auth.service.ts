@@ -13,25 +13,25 @@ import {
 export class AuthService {
   constructor(private readonly usersService: UsersService) {}
 
-  createToken(payload: User): any {
+  static createToken(payload: User): any {
     return jwt.sign({ email: payload.email }, 'secret', { expiresIn: '24h' })
   }
 
   async signup(dto: CreateUserDto) {
     const user = await this.usersService.create(dto)
-    return this.createToken(user)
+    return AuthService.createToken(user)
   }
 
   async login(dto: AuthUserDto) {
     const user = await this.usersService.findByEmail(dto.email)
     if (!user) throw new NotFoundException()
     if (dto.password !== user.password) throw new UnauthorizedException()
-    return this.createToken(user)
+    return AuthService.createToken(user)
   }
 
   async validateWithGoogle(dto: GoogleUserDto): Promise<any> {
     const user = await this.usersService.findByEmail(dto.email)
-    return this.createToken((!!user
+    return AuthService.createToken((!!user
       ? user
       : await this.usersService.createWithGoogle(dto)) as User)
   }
